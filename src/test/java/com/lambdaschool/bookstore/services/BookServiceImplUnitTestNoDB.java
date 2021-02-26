@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BookstoreApplicationTest.class)
@@ -115,21 +116,26 @@ public class BookServiceImplUnitTestNoDB
     @Test
     public void findAll()
     {
+        assertEquals(5, bookService.findAll().size());
     }
 
     @Test
     public void findBookById()
     {
+        assertEquals("Digital Fortress", bookService.findBookById(2).getSection().getName());
     }
 
     @Test(expected = ResourceNotFoundException.class)
     public void notFindBookById()
     {
+        assertEquals("Digital Fortress", bookService.findBookById(202).getSection().getName());
     }
 
     @Test
     public void delete()
     {
+        bookService.delete(3);
+        assertEquals(2, bookService.findAll().size());
     }
 
     @Test
